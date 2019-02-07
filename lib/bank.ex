@@ -18,7 +18,7 @@ defmodule Bank do
 
   def add_ammount(id, amount) do
       %Commands.AddAmount{
-      account_id: account_id,
+      account_id: id,
       amount: amount
     }
     |> Router.dispatch

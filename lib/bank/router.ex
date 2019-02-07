@@ -5,7 +5,8 @@ defmodule Bank.Router do
 
   dispatch(
     [
-      Commands.{CreateAccount, AddAmount}
+      Commands.CreateAccount,
+      Commands.AddAmount
     ],
     to: Account,
     identity: :account_id
