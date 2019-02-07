@@ -6,7 +6,6 @@ defmodule Bank.Repo.Migrations.CreateAccounts do
       add(:account_id, :uuid, primary_key: true)
       add(:amount, :integer)
 
-      timestamps()
     end
   end
 end
