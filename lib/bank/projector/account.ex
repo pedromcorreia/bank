@@ -1,4 +1,4 @@
-defmodule Bank.AccountProjector do
+defmodule Bank.Projector.Account do
   use Commanded.Projections.Ecto,
     name: "AccountProjector"
 
@@ -21,7 +21,7 @@ defmodule Bank.AccountProjector do
     remove_amount(multi, event)
   end
 
-  defp add_amount(multi, %{account_id: id, amount: amount} = event) do
+  defp add_amount(multi, %{account_id: id, amount: amount} = _event) do
     Ecto.Multi.insert(
       multi,
       :change_amount,
@@ -31,7 +31,7 @@ defmodule Bank.AccountProjector do
     )
   end
 
-  defp remove_amount(multi, %{account_id: id, amount: amount} = event) do
+  defp remove_amount(multi, %{account_id: id, amount: amount} = _event) do
     Ecto.Multi.insert(
       multi,
       :change_amount,
