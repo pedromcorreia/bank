@@ -1,31 +1,20 @@
+# This file is responsible for configuring your application
+# and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
-config :logger, level: String.to_atom((System.get_env "LOGLVL") || "error")
+# By default, the umbrella project as well as each child
+# application will require this configuration file, as
+# configuration and dependencies are shared in an umbrella
+# project. While one could configure all applications here,
+# we prefer to keep the configuration of each individual
+# child application in their own app, but all other
+# dependencies, regardless if they belong to one or multiple
+# apps, should be configured in the umbrella to avoid confusion.
+import_config "../apps/*/config/config.exs"
 
-config :bank,
-  ecto_repos: [Bank.Repo]
-
-config :bank, Bank.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "bank_readstore_dev",
-  hostname: "localhost",
-  port: 5432,
-  pool_size: 10
-
-config :commanded,
-  event_store_adapter: Commanded.EventStore.Adapters.EventStore
-
-# Configure the event store database
-config :eventstore, EventStore.Storage,
-  serializer: EventStore.TermSerializer,
-  username: "postgres",
-  password: "postgres",
-  database: "bank_eventstore_dev",
-  hostname: "localhost",
-  port: 5432,
-  pool_size: 10
-
-config :commanded_ecto_projections,
-  repo: Bank.Repo
+# Sample configuration (overrides the imported configuration above):
+#
+#     config :logger, :console,
+#       level: :info,
+#       format: "$date $time [$level] $metadata$message\n",
+#       metadata: [:user_id]
