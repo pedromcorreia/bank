@@ -17,7 +17,15 @@ defmodule Bank do
   end
 
   def add_ammount(id, amount) do
-      %Commands.AddAmount{
+    %Commands.AddAmount{
+      account_id: id,
+      amount: amount
+    }
+    |> Router.dispatch
+  end
+
+  def remove_ammount(id, amount) do
+    %Commands.RemoveAmount{
       account_id: id,
       amount: amount
     }
@@ -29,6 +37,10 @@ defmodule Bank do
       {:ok, account} -> account.amount
       _ -> {:error, :not_found}
     end
+  end
+
+  def list_accounts do
+    Repo.all(Account)
   end
 
   def get_account(id) do
