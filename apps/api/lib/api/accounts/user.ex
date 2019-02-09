@@ -7,6 +7,7 @@ defmodule Api.Accounts.User do
     field :encrypted_password, :string
     field :name, :string
     field :password, :string, virtual: true
+    field :id_bank, :binary_id
 
     timestamps()
   end
@@ -14,8 +15,8 @@ defmodule Api.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :password])
-    |> validate_required([:name, :password])
+    |> cast(attrs, [:name, :password, :id_bank])
+    |> validate_required([:name, :password, :id_bank])
     |> validate_length(:password, min: 6)
     |> unique_constraint(:name)
     |> put_hashed_password()
