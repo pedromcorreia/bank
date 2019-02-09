@@ -9,19 +9,6 @@ defmodule Api.Accounts do
   alias Api.Accounts.User
 
   @doc """
-  Returns the list of users.
-
-  ## Examples
-
-  iex> list_users()
-  [%User{}, ...]
-
-  """
-  def list_users do
-    Repo.all(User)
-  end
-
-  @doc """
   Gets a single user.
 
   Raises `Ecto.NoResultsError` if the User does not exist.
@@ -65,40 +52,6 @@ defmodule Api.Accounts do
   end
 
   @doc """
-  Updates a user.
-
-  ## Examples
-
-  iex> update_user(user, %{field: new_value})
-  {:ok, %User{}}
-
-  iex> update_user(user, %{field: bad_value})
-  {:error, %Ecto.Changeset{}}
-
-  """
-  def update_user(%User{} = user, attrs) do
-    user
-    |> User.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a User.
-
-  ## Examples
-
-  iex> delete_user(user)
-  {:ok, %User{}}
-
-  iex> delete_user(user)
-  {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_user(%User{} = user) do
-    Repo.delete(user)
-  end
-
-  @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 
   ## Examples
@@ -109,5 +62,101 @@ defmodule Api.Accounts do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  alias Api.Accounts.Transfer
+
+  @doc """
+  Returns the list of tranfers.
+
+  ## Examples
+
+      iex> list_tranfers()
+      [%Transfer{}, ...]
+
+  """
+  def list_tranfers do
+    Repo.all(Transfer)
+  end
+
+  @doc """
+  Gets a single transfer.
+
+  Raises `Ecto.NoResultsError` if the Transfer does not exist.
+
+  ## Examples
+
+      iex> get_transfer!(123)
+      %Transfer{}
+
+      iex> get_transfer!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_transfer!(id), do: Repo.get!(Transfer, id)
+
+  @doc """
+  Creates a transfer.
+
+  ## Examples
+
+      iex> create_transfer(%{field: value})
+      {:ok, %Transfer{}}
+
+      iex> create_transfer(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_transfer(attrs \\ %{}) do
+    %Transfer{}
+    |> Transfer.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a transfer.
+
+  ## Examples
+
+      iex> update_transfer(transfer, %{field: new_value})
+      {:ok, %Transfer{}}
+
+      iex> update_transfer(transfer, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_transfer(%Transfer{} = transfer, attrs) do
+    transfer
+    |> Transfer.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Transfer.
+
+  ## Examples
+
+      iex> delete_transfer(transfer)
+      {:ok, %Transfer{}}
+
+      iex> delete_transfer(transfer)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_transfer(%Transfer{} = transfer) do
+    Repo.delete(transfer)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking transfer changes.
+
+  ## Examples
+
+      iex> change_transfer(transfer)
+      %Ecto.Changeset{source: %Transfer{}}
+
+  """
+  def change_transfer(%Transfer{} = transfer) do
+    Transfer.changeset(transfer, %{})
   end
 end
