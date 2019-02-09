@@ -1,15 +1,15 @@
 defmodule ApiWeb.UserControllerTest do
   use ApiWeb.ConnCase
 
-  alias Api.Account
-  alias Api.Account.User
+  alias Api.Accounts
+  alias Api.Accounts.User
 
-  @create_attrs %{name: "some name"}
-  @update_attrs %{name: "some updated name"}
-  @invalid_attrs %{name: nil}
+  @create_attrs %{encrypted_password: "some encrypted_password", name: "some name"}
+  @update_attrs %{encrypted_password: "some updated encrypted_password", name: "some updated name"}
+  @invalid_attrs %{encrypted_password: nil, name: nil}
 
   def fixture(:user) do
-    {:ok, user} = Account.create_user(@create_attrs)
+    {:ok, user} = Accounts.create_user(@create_attrs)
     user
   end
 
@@ -32,6 +32,7 @@ defmodule ApiWeb.UserControllerTest do
       conn = get conn, user_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
+        "encrypted_password" => "some encrypted_password",
         "name" => "some name"}
     end
 
@@ -51,6 +52,7 @@ defmodule ApiWeb.UserControllerTest do
       conn = get conn, user_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
+        "encrypted_password" => "some updated encrypted_password",
         "name" => "some updated name"}
     end
 

@@ -13,8 +13,18 @@ defmodule ApiWeb.Router do
     plug(:accepts, ["html"])
   end
 
-  scope "/", ApiWeb do
-    pipe_through :browser
-    resources "/users", UserController, except: [:new, :edit]
+  pipeline :auth do
+    plug Api.Auth.Pipeline
   end
+
+  scope "/", ApiWeb do
+    pipe_through :api
+    post "/users/signup", UserController, :create
+    post "/users/signin", UserController, :signin
+  end
+
+  #scope "/api", BusiApiWeb do
+  #  pipe_through [:api, :auth]
+  #  resources "/businesses", BusinessController, except: [:new, :edit]
+  #end
 end
