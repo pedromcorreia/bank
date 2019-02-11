@@ -32,17 +32,6 @@ defmodule Bank do
     |> Router.dispatch
   end
 
-  def get_ammount(id) do
-    case get_account(id) do
-      {:ok, account} -> account.amount
-      _ -> {:error, :not_found}
-    end
-  end
-
-  def list_accounts do
-    Repo.all(Account)
-  end
-
   def get_account(id) do
     case Repo.get(Account, id) do
       nil -> {:error, :not_found}
@@ -73,7 +62,6 @@ defmodule Bank do
         amount: amount
       }
     }
-    |> IO.inspect
     |> Router.dispatch
   end
 end
