@@ -73,6 +73,7 @@ defmodule Bank do
         amount: amount
       }
     }
+    |> IO.inspect
     |> Router.dispatch
   end
 end

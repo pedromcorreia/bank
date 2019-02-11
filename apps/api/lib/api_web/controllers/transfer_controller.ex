@@ -2,23 +2,27 @@ defmodule ApiWeb.TransferController do
   use ApiWeb, :controller
 
   alias Api.Accounts
-  alias Api.Accounts.Transfer
+  alias Api.Accounts.{Transfer, User}
+  alias Bank
 
   action_fallback ApiWeb.FallbackController
 
   def index(conn, _params) do
-    IO.inspect conn
     tranfers = Accounts.list_tranfers()
     render(conn, "index.json", tranfers: tranfers)
   end
 
-  def create(conn, %{"transfer" => transfer_params}) do
-    IO.inspect conn
-    with {:ok, %Transfer{} = transfer} <- Accounts.create_transfer(transfer_params) do
+  def create(conn, %{"transfer" => %{"name_target" => name_target, "amount" => amount}}) do
+    with {:ok, %User{} = user } <- Accounts.get_by_name(name_target) do
+      conn.assigns[:current_user]
+      |> Map.get(:id_bank)
+      |> Bank.do_transfer(user.id_bank, amount)
+      |> case do
+        {:error, :not_found} -> {:error, :not_found}
+        _ -> {:ok, :success}
+      end
       conn
-      |> put_status(:created)
-      |> put_resp_header("location", transfer_path(conn, :show, transfer))
-      |> render("show.json", transfer: transfer)
+      |> render("show.json")
     end
   end
 

@@ -8,6 +8,9 @@ defmodule ApiWeb.Router do
   pipeline :auth do
     plug Api.Auth.Pipeline
   end
+  pipeline :with_user do
+    plug Web.UserPlug
+  end
 
   scope "/api", ApiWeb do
     pipe_through :api
@@ -16,7 +19,7 @@ defmodule ApiWeb.Router do
   end
 
   scope "/api", ApiWeb do
-    pipe_through [:api, :auth]
+    pipe_through [:api, :auth, :with_user]
     resources "/transfers", TransferController, except: [:new, :edit]
   end
 end
