@@ -9,7 +9,7 @@ defmodule ApiWeb.Router do
     plug Api.Auth.Pipeline
   end
   pipeline :with_user do
-    plug Web.UserPlug
+    plug Web.UserIdPlug
   end
 
   scope "/api", ApiWeb do
