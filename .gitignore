@@ -2,7 +2,7 @@
 /_build/
 
 # If you run "mix test --cover", coverage assets end up here.
-/cover/
+/cover
 
 # The directory Mix downloads your dependencies sources to.
 /deps/
@@ -21,4 +21,4 @@ erl_crash.dump
 
 *.swp
 
-/apps/api/cover/*
+/apps/*/cover/*.html
