@@ -30,7 +30,7 @@ defmodule ApiWeb.TransferController do
         end
         render(conn, "response.json", %{response: response})
     else
-      {:error, :not_found} ->
+      _ ->
         render(conn, "response.json", %{response: :not_found_user})
     end
   end

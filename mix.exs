@@ -5,6 +5,9 @@ defmodule BankApp.MixProject do
     [
       apps_path: "apps",
       start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -15,6 +18,23 @@ defmodule BankApp.MixProject do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    []
+    [
+      {:excoveralls, "~> 0.10", only: :test},
+      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
+      {:faker, "~> 0.12", only: :test}
+    ]
+  end
+
+  defp aliases do
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      setup_es: ["event_store.create", "event_store.init"],
+      setup_ecto: ["ecto.create", "ecto.migrate"],
+      setup_db: ["setup_es", "setup_ecto"],
+      drop_db: ["ecto.drop", "event_store.drop"],
+      reset_db: ["drop_db", "setup_db"],
+      test: ["reset_db", "test --trace"]
+    ]
   end
 end

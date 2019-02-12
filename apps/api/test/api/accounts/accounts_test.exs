@@ -9,10 +9,10 @@ defmodule Api.AccountsTest do
     @valid_attrs %{password: "password", name: "some name", id_bank: "cdfdaf44-ee35-11e3-846b-14109ff1a304"}
     @invalid_attrs %{password: nil, name: nil}
 
-    def user_fixture(attrs \\ %{}) do
+    def user_fixture(attrs \\ @valid_attrs) do
       {:ok, user} =
         attrs
-        |> Enum.into(@valid_attrs)
+        |> Enum.into(attrs)
         |> Accounts.create_user()
 
       user
@@ -23,7 +23,23 @@ defmodule Api.AccountsTest do
       assert Accounts.get_user!(user.id) |> Map.get(:id) == user.id
       assert Accounts.get_user!(user.id) |> Map.get(:id_bank) == "cdfdaf44-ee35-11e3-846b-14109ff1a304"
       assert Accounts.get_user!(user.id) |> Map.get(:name) == "some name"
-      assert not is_nil(Map.get(Accounts.get_user!(user.id), :encrypted_password))
+      refute is_nil(Map.get(Accounts.get_user!(user.id), :encrypted_password))
+    end
+
+    test "get_user/1 returns the user with given id" do
+      user = user_fixture(%{password: "password", name: "name_1", id_bank: "cdfdaf44-ee35-11e3-846b-14109ff1a304"})
+      assert Accounts.get_user(user.id) |> Map.get(:id) == user.id
+      assert Accounts.get_user(user.id) |> Map.get(:id_bank) == "cdfdaf44-ee35-11e3-846b-14109ff1a304"
+      assert Accounts.get_user(user.id) |> Map.get(:name) == "name_1"
+      refute is_nil(Map.get(Accounts.get_user!(user.id), :encrypted_password))
+    end
+
+    test "get_by_name/1 returns the user with given id" do
+      user = user_fixture(%{password: "password", name: "name_1", id_bank: "cdfdaf44-ee35-11e3-846b-14109ff1a304"})
+      {:ok, user} = Accounts.get_by_name(user.name)
+      assert Map.get(user, :id) == user.id
+      assert Map.get(user, :id_bank) == "cdfdaf44-ee35-11e3-846b-14109ff1a304"
+      assert Map.get(user, :name) == "name_1"
     end
 
     test "create_user/1 with valid data creates a user" do

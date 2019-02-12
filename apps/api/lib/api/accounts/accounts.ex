@@ -23,8 +23,11 @@ defmodule Api.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  @doc false
   def get_user(id), do: Repo.get(User, id)
 
+  @doc false
   def get_by_name(name) do
     case Repo.get_by(User, name: name) do
       nil ->
