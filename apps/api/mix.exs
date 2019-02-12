@@ -47,6 +47,7 @@ defmodule Api.Mixfile do
       {:guardian, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.0"},
+      {:excoveralls, "~> 0.10", only: :test},
       {:bank, in_umbrella: true}
     ]
   end

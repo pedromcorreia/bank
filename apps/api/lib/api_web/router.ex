@@ -20,6 +20,6 @@ defmodule ApiWeb.Router do
 
   scope "/api", ApiWeb do
     pipe_through [:api, :auth, :with_user]
-    resources "/transfers", TransferController, except: [:new, :edit]
+    resources "/transfers", TransferController, only: [:create, :show]
   end
 end
