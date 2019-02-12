@@ -1,11 +1,12 @@
 defmodule Bank.Process.Transfer do
   use Commanded.ProcessManagers.ProcessManager,
     name: "TransferProcess",
-  router: Bank.Router
+    router: Bank.Router
 
   alias Bank.{Transfer, Commands, Events}
 
   defstruct []
+
   def interested?(%Events.RemovedAmount{operation: %{transfer_id: transfer_id} = _operation}) do
     {:start, transfer_id}
   end

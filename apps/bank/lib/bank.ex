@@ -7,9 +7,10 @@ defmodule Bank do
   alias Bank.Schemas.{Account, Transaction}
 
   def create_account do
-    id = UUID.uuid4
+    id = UUID.uuid4()
+
     %Commands.CreateAccount{account_id: id}
-    |> Router.dispatch
+    |> Router.dispatch()
     |> case do
       :ok -> {:ok, id}
       err -> err
@@ -21,7 +22,7 @@ defmodule Bank do
       account_id: id,
       amount: amount
     }
-    |> Router.dispatch
+    |> Router.dispatch()
   end
 
   def remove_ammount(id, amount) do
@@ -29,7 +30,7 @@ defmodule Bank do
       account_id: id,
       amount: amount
     }
-    |> Router.dispatch
+    |> Router.dispatch()
   end
 
   def get_account(id) do
@@ -41,14 +42,15 @@ defmodule Bank do
 
   def get_statement(id) do
     with {:ok, _account} <- get_account(id),
-    do: {:ok, Repo.all(statement_query(id))}
+         do: {:ok, Repo.all(statement_query(id))}
   end
 
   defp statement_query(id) do
     import Ecto.Query
 
-    from t in Transaction,
+    from(t in Transaction,
       where: t.account_id == ^id
+    )
   end
 
   def do_transfer(source_id, target_id, amount) do
@@ -56,12 +58,12 @@ defmodule Bank do
       account_id: source_id,
       amount: amount,
       operation: %Transfer{
-        transfer_id: UUID.uuid4,
+        transfer_id: UUID.uuid4(),
         source_id: source_id,
         target_id: target_id,
         amount: amount
       }
     }
-    |> Router.dispatch
+    |> Router.dispatch()
   end
 end

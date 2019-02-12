@@ -2,7 +2,7 @@ defmodule Bank.Account do
   alias __MODULE__
   alias Bank.{Commands, Events}
 
-  defstruct [opened: false, amount: 0]
+  defstruct opened: false, amount: 0
 
   def execute(_, %Commands.CreateAccount{} = cmd) do
     %Events.AccountOpened{account_id: cmd.account_id}
@@ -18,7 +18,8 @@ defmodule Bank.Account do
     }
   end
 
-  def execute(%{amount: current_amount}, %{amount: amount_to_add}) when current_amount < amount_to_add do
+  def execute(%{amount: current_amount}, %{amount: amount_to_add})
+      when current_amount < amount_to_add do
     {:error, :insufficient_funds}
   end
 
@@ -30,12 +31,13 @@ defmodule Bank.Account do
     }
   end
 
- def apply(_, %Events.AccountOpened{} = event) do
+  def apply(_, %Events.AccountOpened{} = event) do
     %Account{
       opened: true,
       amount: 0
     }
   end
+
   def apply(s, %Events.AddedAmount{} = event), do: add_value(s, event)
   def apply(s, %Events.RemovedAmount{} = event), do: remove_value(s, event)
   def apply(s, _), do: s

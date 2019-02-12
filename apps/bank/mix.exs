@@ -39,11 +39,9 @@ defmodule Bank.MixProject do
       setup_es: ["event_store.create", "event_store.init"],
       setup_ecto: ["ecto.create", "ecto.migrate"],
       setup_db: ["setup_es", "setup_ecto"],
-
       drop_db: ["ecto.drop", "event_store.drop"],
       reset_db: ["drop_db", "setup_db"],
-
-      test: ["reset_db", "test --trace"],
+      test: ["reset_db", "test --trace"]
     ]
   end
 end

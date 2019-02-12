@@ -1,6 +1,6 @@
 use Mix.Config
 
-config :logger, level: String.to_atom((System.get_env "LOGLVL") || "error")
+config :logger, level: String.to_atom(System.get_env("LOGLVL") || "error")
 
 config :bank,
   ecto_repos: [Bank.Repo]
