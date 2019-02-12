@@ -41,8 +41,9 @@ defmodule Bank do
   end
 
   def get_statement(id) do
-    with {:ok, _account} <- get_account(id),
-         do: {:ok, Repo.all(statement_query(id))}
+    with {:ok, _account} <- get_account(id) do
+      {:ok, Repo.all(statement_query(id))}
+    end
   end
 
   defp statement_query(id) do
