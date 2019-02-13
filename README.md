@@ -11,8 +11,21 @@ This app is inspired by the article written by [Martin Fowler](https://martinfow
 
 # Application structure
 
-  - Partner api: used by all users. Create user through this api and we create in bank cqrs.
- (localhost:6000/api/leads)
+  - API: used by all users. Create user through this api and we create in bank cqrs.
+
+ # Example
+
+ (localhost:6000/api/users/signup) - POST
+  - curl -X POST http://localhost:6000/api/users/signup -H "Content-Type: application/json" -d '{"user": {"name": "user1", "password": "password"}}'
+
+ (localhost:6000/api/users/signin) - POST, will return the token
+ - curl -X POST http://localhost:6000/api/users/signin -H "Content-Type: application/json" -d '{"name": "user1", "password": "password"}'
+
+ (localhost:6000/api/transfers/:id) - GET
+  - curl X POST http://localhost:6000/api/transfers/2 -H "Authorization: Bearer ${token}"
+
+ (localhost:6000/api/transfers) - POST
+  - curl X POST http://localhost:6000/api/transfers -H "Authorization: Bearer ${token}" -H "Content-Type: application/json" -d '{"transfer": {"source_account_id": "1", "destination_account_id": "2", "amount": 1}}'
 
  - Private database: initially used by bank system only. Is our storage with read and event store.
 
