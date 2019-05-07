@@ -50,8 +50,10 @@ defmodule Api.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
+    IO.inspect attrs
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
+    |> IO.inspect
   end
 end

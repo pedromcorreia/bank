@@ -4,8 +4,11 @@ defmodule Account.AccountTest do
   alias Bank.Account
 
   describe "account" do
-
-    @valid_attrs %{password: "password", name: "some name", id_bank: "cdfdaf44-ee35-11e3-846b-14109ff1a304"}
+    @valid_attrs %{
+      password: "password",
+      name: "some name",
+      id_bank: "cdfdaf44-ee35-11e3-846b-14109ff1a304"
+    }
     @invalid_attrs %{password: nil, name: nil}
 
     def user_fixture(attrs \\ @valid_attrs) do

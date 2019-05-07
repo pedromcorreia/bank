@@ -3,7 +3,6 @@ defmodule BankTest do
   doctest Bank
 
   describe "bank" do
-
     def account_fixture() do
       {:ok, id} = Bank.create_account()
 

@@ -31,7 +31,7 @@ defmodule Bank do
       amount: amount
     }
     |> Router.dispatch()
-    |> IO.inspect
+    |> IO.inspect()
   end
 
   def get_account(id) do
