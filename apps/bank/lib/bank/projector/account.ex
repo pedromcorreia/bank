@@ -9,7 +9,7 @@ defmodule Bank.Projector.Account do
     Ecto.Multi.insert(
       multi,
       :insert_account,
-      %Account{account_id: id, amount: 0}
+      %Account{account_id: id, amount: 1000}
     )
   end
 

@@ -34,7 +34,7 @@ defmodule Bank.Account do
   def apply(_, %Events.AccountOpened{} = event) do
     %Account{
       opened: true,
-      amount: 0
+      amount: 1000
     }
   end
 

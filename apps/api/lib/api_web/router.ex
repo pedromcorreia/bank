@@ -21,5 +21,7 @@ defmodule ApiWeb.Router do
   scope "/api", ApiWeb do
     pipe_through [:api, :auth, :with_user]
     resources "/transfers", TransferController, only: [:create, :show]
+
+    post "/cashout", TransferController, :cashout
   end
 end

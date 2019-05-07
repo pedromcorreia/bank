@@ -34,4 +34,8 @@ defmodule ApiWeb.TransferController do
         render(conn, "response.json", %{response: :not_found_user})
     end
   end
+
+  def cashout(conn, %{"cashout" => params}) do
+    render(conn, "response.json", %{response: 10})
+  end
 end
