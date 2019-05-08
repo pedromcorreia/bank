@@ -3,7 +3,7 @@ defmodule ApiWeb.UserControllerTest do
 
   alias Api.Accounts
 
-  @create_attrs %{password: "encrypted_password", name: "some name", id_bank: "cdfdaf44-ee35-11e3-846b-14109ff1a304"}
+  @create_attrs %{password: "encrypted_password", name: "some name", email: "some@email.com", id_bank: "cdfdaf44-ee35-11e3-846b-14109ff1a304"}
   @invalid_attrs %{encrypted_password: nil, name: nil, id_bank: nil}
 
   def fixture(:user) do

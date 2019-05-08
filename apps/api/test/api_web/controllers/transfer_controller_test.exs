@@ -10,14 +10,14 @@ defmodule ApiWeb.TransferControllerTest do
   def fixture(:user) do
     {:ok, id} = Bank.create_account()
 
-    attrs = %{password: "password", name: Faker.Name.first_name()}
+    attrs = %{password: "password", name: Faker.Name.first_name(), email: Faker.Internet.email()}
     {:ok, %User{} = user} = Accounts.create_user(Map.put(attrs, :id_bank, id))
 
     user
   end
 
   def authenticate(conn) do
-    user_attrs = %{password: "password", name: Faker.Name.first_name()}
+    user_attrs = %{password: "password", name: Faker.Name.first_name(), email: Faker.Internet.email()}
     {:ok, id} = Bank.create_account()
     {:ok, %User{} = user} = Accounts.create_user(Map.put(user_attrs, :id_bank, id))
 
@@ -40,7 +40,7 @@ defmodule ApiWeb.TransferControllerTest do
       user = fixture(:user)
       conn = get conn, transfer_path(conn, :show, user.id)
       response = json_response(conn, 200)
-      assert 0 == Map.get(response, "balance")
+      assert 1000 == Map.get(response, "balance")
       assert is_list(Map.get(response, "transfers"))
     end
 

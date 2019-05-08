@@ -31,7 +31,7 @@ defmodule BankTest do
 
     test "try remove_ammount/2 from not amount and returns error" do
       id = account_fixture()
-      assert {:error, :insufficient_funds} == Bank.remove_ammount(id, 100)
+      assert {:error, :insufficient_funds} == Bank.remove_ammount(id, 1001)
     end
 
     test "try add remove for id not exist and raise error" do
