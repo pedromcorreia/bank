@@ -4,5 +4,7 @@ defmodule Bank.Schemas.Transaction do
   schema "transactions" do
     field(:account_id, :string)
     field(:amount, :integer)
+
+    timestamps()
   end
 end
