@@ -8,7 +8,14 @@ defmodule Bank.MixProject do
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -30,7 +37,8 @@ defmodule Bank.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:uuid, "~> 1.1"},
       {:eventstore, ">= 0.13.0"},
-      {:jason, "~> 1.1"}
+      {:jason, "~> 1.1"},
+      {:excoveralls, "~> 0.6", only: :test}
     ]
   end
 

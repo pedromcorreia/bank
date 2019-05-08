@@ -65,4 +65,54 @@ defmodule ApiWeb.TransferControllerTest do
       assert json_response(conn, 200)["response"] == "not_found_user"
     end
   end
+
+  describe "cashout" do
+    test "renders amount when data is valid", %{conn: conn} do
+      user = fixture(:user)
+      conn = post conn, transfer_path(conn, :cashout), %{cashout: 10}
+      assert %{"response" => 10} == json_response(conn, 200)
+      assert is_map(json_response(conn, 200))
+    end
+
+    test "renders insufficient_funds when hasn't sufficient funds", %{conn: conn} do
+      user = fixture(:user)
+      conn = post conn, transfer_path(conn, :cashout), %{cashout: 1001}
+      assert %{"response" => "insufficient_funds"} == json_response(conn, 200)
+      assert is_map(json_response(conn, 200))
+    end
+  end
+
+  describe "report" do
+    test "return 200 with report DD", %{conn: conn} do
+      user = fixture(:user)
+      Bank.remove_ammount(user.id_bank, 100)
+      conn = get conn, transfer_path(conn, :report, %{report: "DD"})
+      assert json_response(conn, 200)
+      assert is_map(json_response(conn, 200))
+    end
+
+    test "return 200 with report MM", %{conn: conn} do
+      user = fixture(:user)
+      Bank.remove_ammount(user.id_bank, 100)
+      conn = get conn, transfer_path(conn, :report, %{report: "MM"})
+      assert json_response(conn, 200)
+      assert is_map(json_response(conn, 200))
+    end
+
+    test "return 200 with report YYYY", %{conn: conn} do
+      user = fixture(:user)
+      Bank.remove_ammount(user.id_bank, 100)
+      conn = get conn, transfer_path(conn, :report, %{report: "YYYY"})
+      assert json_response(conn, 200)
+      assert is_map(json_response(conn, 200))
+    end
+
+    test "return 200 with report total", %{conn: conn} do
+      user = fixture(:user)
+      Bank.remove_ammount(user.id_bank, 100)
+      conn = get conn, transfer_path(conn, :report, %{report: "total"})
+      assert json_response(conn, 200)
+      assert is_map(json_response(conn, 200))
+    end
+  end
 end
