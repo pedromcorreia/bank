@@ -24,5 +24,6 @@ defmodule ApiWeb.Router do
     resources "/transfers", TransferController, only: [:create, :show]
 
     post "/cashout", TransferController, :cashout
+    get "/report", TransferController, :report
   end
 end

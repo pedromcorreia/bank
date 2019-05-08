@@ -47,4 +47,10 @@ defmodule ApiWeb.TransferController do
         render(conn, "response.json", %{response: :insufficient_funds})
     end
   end
+
+  def report(conn, %{"report" => report}) do
+    with {:ok, report} <- Bank.get_statement(conn.assigns.current_user, report) do
+        render(conn, "response.json", %{response: report})
+    end
+  end
 end

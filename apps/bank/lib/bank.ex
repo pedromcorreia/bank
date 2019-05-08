@@ -40,17 +40,31 @@ defmodule Bank do
     end
   end
 
-  def get_statement(id) do
+  def get_statement(id, pick \\ "DD") do
     with {:ok, _account} <- get_account(id) do
-      {:ok, Repo.all(statement_query(id))}
+      {:ok, Repo.all(statement_query(id, pick))}
     end
   end
 
-  defp statement_query(id) do
+  defp statement_query(id, pick) when pick in ["YYYY", "MM", "DD"] do
     import Ecto.Query
 
     from(t in Transaction,
-      where: t.account_id == ^id
+      where: t.account_id == ^id,
+      select: %{
+        pick: fragment("to_char(?, ?) as date", t.inserted_at, ^pick),
+        total: sum(t.amount)
+      },
+      group_by: [fragment("date")]
+    )
+  end
+
+  defp statement_query(id, "total") do
+    import Ecto.Query
+
+    from(t in Transaction,
+      where: t.account_id == ^id,
+      select: %{total: sum(t.amount)}
     )
   end
 

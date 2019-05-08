@@ -30,6 +30,10 @@ This app is inspired by the article written by [Martin Fowler](https://martinfow
  (localhost:6000/api/cashout) - POST
   - `curl -X POST http://localhost:6000/api/cashout -H "Authorization: Bearer ${token}" -H "Content-Type: application/json" -d '{"cashout": 10}'`
 
+ (localhost:6000/api/report) - GET Permitted: [DD, MM, YYYY, total]
+  - `curl -X GET "http://localhost:6000/api/report?report=DD" -H "Authorization: Bearer ${token}" -H "Content-Type: application/json"`
+
+
  - Private database: initially used by bank system only. Is our storage with read and event store.
 
  # Running the application
