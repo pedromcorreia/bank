@@ -38,6 +38,10 @@ defmodule ApiWeb.TransferController do
   def cashout(conn, %{"cashout" => cashout}) do
     case Bank.remove_ammount(conn.assigns.current_user, cashout) do
       :ok ->
+        conn
+        |> ApiWeb.Email.welcome_email(cashout)
+        |> ApiWeb.Mailer.deliver_now()
+
         render(conn, "response.json", %{response: cashout})
       {:error, :insufficient_funds} ->
         render(conn, "response.json", %{response: :insufficient_funds})

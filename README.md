@@ -16,7 +16,7 @@ This app is inspired by the article written by [Martin Fowler](https://martinfow
  # Example
 
  (localhost:6000/api/users/signup) - POST
-  - `curl -X POST http://localhost:6000/api/users/signup -H "Content-Type: application/json" -d '{"user": {"name": "user1", "password": "password"}}'`
+  - `curl -X POST http://localhost:6000/api/users/signup -H "Content-Type: application/json" -d '{"user": {"name": "user1", "password": "password", "email": "email@mail.com"}}'`
 
  (localhost:6000/api/users/signin) - POST, will return the token
  - `curl -X POST http://localhost:6000/api/users/signin -H "Content-Type: application/json" -d '{"name": "user1", "password": "password"}'`

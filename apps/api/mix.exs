@@ -48,7 +48,8 @@ defmodule Api.Mixfile do
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.0"},
       {:excoveralls, "~> 0.10", only: :test},
-      {:bank, in_umbrella: true}
+      {:bank, in_umbrella: true},
+      {:bamboo, "~> 1.2"}
     ]
   end
 

@@ -8,7 +8,6 @@ defmodule ApiWeb.UserController do
   action_fallback ApiWeb.FallbackController
 
   def create(conn, %{"user" => user_params}) do
-    IO.inspect user_params
     with {:ok, id} <- Bank.create_account(),
          {:ok, %User{} = user} <- Accounts.create_user(Map.put(user_params, "id_bank", id)),
          {:ok, token, _claims} <- Guardian.encode_and_sign(user) do

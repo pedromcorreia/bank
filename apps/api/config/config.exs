@@ -30,3 +30,7 @@ import_config "#{Mix.env}.exs"
 config :api, Api.Auth.Guardian,
   issuer: "api",
   secret_key: "SWexd0Z+mxuuZiAEDmUsz3M9qwhgiM7IQU+uj8SenA/R26b2SdxiuHQ3uC25GCN7"
+
+config :api, ApiWeb.Mailer,
+  adapter: Bamboo.LocalAdapter,
+  open_email_in_browser_url: "http://localhost:6000/sent_emails"

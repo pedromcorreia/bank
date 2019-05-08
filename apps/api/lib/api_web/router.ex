@@ -8,6 +8,7 @@ defmodule ApiWeb.Router do
   pipeline :auth do
     plug Api.Auth.Pipeline
   end
+
   pipeline :with_user do
     plug Web.UserIdPlug
   end

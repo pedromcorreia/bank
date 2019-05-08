@@ -18,6 +18,7 @@ defmodule Api.Accounts.User do
     user
     |> cast(attrs, [:name, :email,:password, :id_bank])
     |> validate_required([:name, :email,:password, :id_bank])
+    |> validate_format(:email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
     |> validate_length(:password, min: 6)
     |> unique_constraint(:name)
     |> put_hashed_password()
