@@ -7,10 +7,10 @@ config :bank,
 
 config :bank, Bank.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("PG_PASSWORD") || "postgres",
+  password: System.get_env("PG_PASSWORD") || "postgres",
   database: "bank_readstore_dev",
-  hostname: "localhost",
+  hostname: System.get_env("PG_HOST") || "localhost",
   port: 5432,
   pool_size: 10
 
@@ -20,10 +20,10 @@ config :commanded,
 # Configure the event store database
 config :eventstore, EventStore.Storage,
   serializer: EventStore.TermSerializer,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("PG_PASSWORD") || "postgres",
+  password: System.get_env("PG_PASSWORD") || "postgres",
   database: "bank_eventstore_dev",
-  hostname: "localhost",
+  hostname: System.get_env("PG_HOST") || "localhost",
   port: 5432,
   pool_size: 10
 

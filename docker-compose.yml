@@ -1,0 +1,27 @@
+app:
+  build: .
+  dockerfile: Dockerfile
+  volumes:
+    - .:/umbrella
+  ports:
+    - 6000:6000
+
+dev:
+  extends: app
+  environment:
+    - USER
+    - USERNAME
+    - MIX_ENV=dev
+    - PG_HOST=db
+    - PG_USERNAME=postgres
+    - PG_PASSWORD=postgres
+    - ENDPOINT_HOST=localhost:6000
+  links:
+    - db
+
+db:
+  image: postgres:9.5
+  environment:
+    - POSTGRES_PASSWORD=postgres
+  ports:
+    - 5432
