@@ -1,3 +1,4 @@
+
 # BankApp leads integration platform
 
 This application is responsible for simulate a bank app (like mini transactions).
@@ -49,6 +50,12 @@ This app is inspired by the article written by [Martin Fowler](https://martinfow
  Test all suite:
 
  `$ mix tests`
+
+# Docker
+> install docker
+[https://docs.docker.com/install/](https://docs.docker.com/install/)
+> Run
+`docker-compose up --build dev`
 
  # Contributing
 
