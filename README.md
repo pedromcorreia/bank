@@ -41,7 +41,7 @@ This app is inspired by the article written by [Martin Fowler](https://martinfow
 
  Use the `$ iex -S mix phx.server` to run the application.
 
- # create database.
+ # Create database.
 
  Use the `$ mix setup_db` to create the database.
 
@@ -52,9 +52,10 @@ This app is inspired by the article written by [Martin Fowler](https://martinfow
  `$ mix tests`
 
 # Docker
-> install docker
-[https://docs.docker.com/install/](https://docs.docker.com/install/)
-> Run
+
+- install docker with [https://docs.docker.com/install/](https://docs.docker.com/install/)
+
+- Run
 `docker-compose up --build dev`
 
  # Contributing
